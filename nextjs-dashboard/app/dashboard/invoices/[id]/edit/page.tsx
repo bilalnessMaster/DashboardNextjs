@@ -2,7 +2,7 @@ import Breadcrumbs from "@/app/ui/invoices/breadcrumbs";
 import Form from "@/app/ui/invoices/edit-form";
 import { fetchCustomers, fetchInvoiceById } from "@/app/lib/data";
 import React from "react";
-
+import { notFound } from "next/navigation";
 const page = async (props: {
   params: Promise<{
     id: string;
@@ -14,6 +14,9 @@ const page = async (props: {
     fetchInvoiceById(id),
     fetchCustomers(),
   ]);
+  if(!invoice){
+    notFound()
+  }
   return (
     <main>
       <Breadcrumbs
